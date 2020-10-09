@@ -34,6 +34,9 @@ function HeroesList() {
         <h1 className="page-title">EXPLORE O UNIVERSO</h1>
         <p><strong className="page-info">Mergulhe no domínio deslumbrante de todos os personagens clássicos que você ama - e aqueles que você descobrirá em breve!</strong></p>
       </header>
+      <form id="search-form">
+        <input type="search" placeholder="Procure por heróis" />
+      </form>
       <main>
         {heroes.map((hero: Hero) => {
           return <HeroItem key={hero.id} hero={hero} />;
