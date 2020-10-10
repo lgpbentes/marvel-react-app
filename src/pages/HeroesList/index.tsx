@@ -5,6 +5,8 @@ import HeroItem, { Hero } from '../../components/HeroItem';
 import { CharactersApi } from '../../services/marvel-api';
 
 import logoImage from '../../assets/images/logo/Group.png';
+import heroIcon from '../../assets/images/icons/heroi/superhero.png';
+import heartIcon from '../../assets/images/icons/heart/Path.png';
 
 
 import './styles.css';
@@ -38,9 +40,31 @@ function HeroesList() {
         <input type="search" placeholder="Procure por heróis" />
       </form>
       <main>
-        {heroes.map((hero: Hero) => {
-          return <HeroItem key={hero.id} hero={hero} />;
-        })}
+        <nav className="search-nav">
+          <div className="total-results">
+            <p>Encontrados 20 heróis</p>
+          </div>
+          <div className="filters">
+            <div className="order-by">
+              <img src={heroIcon} alt={'hero'} />
+              <p>Ordenar por nome - A/Z</p>
+              <label className="switch">
+                <input type="checkbox" />
+                <span className="slider"></span>
+              </label>
+            </div>
+            <div className="filter-favs">
+              <img src={heartIcon} alt={'heart'} />
+              <p>Somente favoritos</p>
+            </div>
+          </div>
+        </nav>
+        <div className="heroes-list">
+          {heroes.map((hero: Hero) => {
+            return <HeroItem key={hero.id} hero={hero} />;
+          })}
+        </div>
+
       </main>
       {/* TODO: create footer component */}
       <footer className="page-footer">
