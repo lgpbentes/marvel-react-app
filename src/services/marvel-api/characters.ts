@@ -1,12 +1,17 @@
 import api from './config';
 
 const Characters = {
-  getCharacters: async ({ id }: { id?: number }) => {
-    const params: { characterId?: number } = {};
+  getCharacters: async ({ id, query }: { id?: number, query?: string }) => {
+    const params: { characterId?: number, name?: string } = {};
     if (id) {
       params.characterId = id;
     }
-    const response = await api.get(`/characters${params.characterId ? `/${params.characterId}` : ''}`);
+
+    if (query) {
+      params.name = query;
+    }
+
+    const response = await api.get(`/characters${params.characterId ? `/${params.characterId}` : ''}`, { params });
     return response.data;
   },
 

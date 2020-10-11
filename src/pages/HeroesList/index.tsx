@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 
 import HeroItem, { Hero } from '../../components/HeroItem';
 
@@ -13,17 +13,20 @@ import './styles.css';
 
 function HeroesList() {
   const [heroes, setHeroes] = useState([]);
+  const [totalResults, setTotalResults] = useState(undefined);
+  const [query, setQuery] = useState('');
 
-  async function getCharacters() {
+  async function getCharacters({ query }: { query?: string }) {
 
-    const response = await CharactersApi.getCharacters({});
+    const response = await CharactersApi.getCharacters({ query });
     const { total, count, results } = response.data;
 
     setHeroes(results);
+    setTotalResults(count);
   }
 
   useEffect(() => {
-    getCharacters();
+    getCharacters({});
   }, [])
 
   return (
@@ -36,29 +39,35 @@ function HeroesList() {
         <h1 className="page-title">EXPLORE O UNIVERSO</h1>
         <p><strong className="page-info">Mergulhe no domínio deslumbrante de todos os personagens clássicos que você ama - e aqueles que você descobrirá em breve!</strong></p>
       </header>
-      <form id="search-form">
-        <input type="search" placeholder="Procure por heróis" />
+      <form id="search-form" onSubmit={(e) => {
+        e.preventDefault();
+        getCharacters({ query })
+      }}>
+        <input type="search" placeholder="Procure por heróis" value={query} onChange={(e) => { setQuery(e.target.value) }} />
       </form>
       <main>
-        <nav className="search-nav">
-          <div className="total-results">
-            <p>Encontrados 20 heróis</p>
-          </div>
-          <div className="filters">
-            <div className="order-by">
-              <img src={heroIcon} alt={'hero'} />
-              <p>Ordenar por nome - A/Z</p>
-              <label className="switch">
-                <input type="checkbox" />
-                <span className="slider"></span>
-              </label>
+        {totalResults
+          ? <nav className="search-nav">
+            <div className="total-results">
+              <p>Encontrados {totalResults} heróis</p>
             </div>
-            <div className="filter-favs">
-              <img src={heartIcon} alt={'heart'} />
-              <p>Somente favoritos</p>
+            <div className="filters">
+              <div className="order-by">
+                <img src={heroIcon} alt={'hero'} />
+                <p>Ordenar por nome - A/Z</p>
+                <label className="switch">
+                  <input type="checkbox" />
+                  <span className="slider"></span>
+                </label>
+              </div>
+              <div className="filter-favs">
+                <img src={heartIcon} alt={'heart'} />
+                <p>Somente favoritos</p>
+              </div>
             </div>
-          </div>
-        </nav>
+          </nav>
+          : <></>
+        }
         <div className="heroes-list">
           {heroes.map((hero: Hero) => {
             return <HeroItem key={hero.id} hero={hero} />;
