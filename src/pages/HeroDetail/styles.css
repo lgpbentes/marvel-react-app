@@ -1,0 +1,207 @@
+#page-hero-detail {
+  background-color: var(--color-secondary);
+  width: 100vw;
+  /* height: 100vh; */
+}
+
+#page-hero-detail .page-footer {
+  position: blocked;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4rem;
+  background-color: var(--color-primary);
+}
+
+#page-hero-detail .page-header {
+  position: blocked;
+  left: 0;
+  top: 0;
+  width: 100%;
+  text-align: center;
+}
+
+#page-hero-detail main {
+  justify-content: center;
+  margin: 3.2rem auto;
+  width: 80%;
+  height: 100%;
+}
+
+#page-hero-detail .hero-detail .hero-info {
+  flex: 1;
+}
+
+#page-hero-detail .hero-detail .hero-info .hero-title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+#page-hero-detail .hero-detail .hero-info .hero-description {
+  color: var(--color-text-light);
+  margin-bottom: 3rem;
+  font-weight: bold;
+}
+
+#page-hero-detail .hero-detail .hero-info .hero-title span {
+  font-size: 3rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+#page-hero-detail .hero-detail .hero-info .hero-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+#page-hero-detail .hero-detail .hero-info .hero-stats .hero-stat-label {
+  margin-bottom: 2rem;
+}
+
+
+#page-hero-detail .hero-detail .hero-info .hero-stats .hero-stat {
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+}
+
+#page-hero-detail .hero-detail .hero-info .hero-stats .hero-stat img {
+  margin-right: 2rem;
+}
+
+#page-hero-detail .hero-detail .hero-info .hero-stats p {
+  font-size: 1.2rem;
+}
+
+#page-hero-detail .hero-detail .hero-rating {
+  margin-bottom: 3rem;
+}
+
+#page-hero-detail .hero-detail .hero-last-release {
+  margin-bottom: 3rem;
+}
+
+#page-hero-detail .hero-detail .hero-image {
+  flex: 3;
+  height: 100%;
+}
+
+#page-hero-detail .hero-detail .hero-image img {
+  width: 100%;
+  height: 1fr;
+  object-fit: fill;
+  margin-bottom: 3rem;
+}
+
+#page-hero-detail .hero-releases {
+  margin-top: 5rem;
+}
+
+#page-hero-detail .hero-releases h1 {
+  margin-bottom: 3rem;
+}
+
+#page-hero-detail .hero-releases-list {
+  display: grid;
+  max-width: 100%;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 0.2fr));
+  grid-gap: 3rem;
+  justify-content: center;
+  align-items: baseline;
+}
+
+#page-hero-detail .hero-releases-list .release-item {
+  display: flex;
+  flex-direction: column;
+}
+
+#page-hero-detail .hero-releases-list .release-cover {
+  height: 80%;
+}
+
+#page-hero-detail .hero-releases-list .release-cover img {
+  width: 20rem;
+  height: 30rem;
+  object-fit: fill;
+}
+
+#search-form {
+  justify-content: center;
+  margin: 3.2rem auto;
+  width: 50%;
+}
+
+input {
+  outline: none;
+}
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
+  font-family: inherit;
+}
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button {
+  display: none;
+}
+
+input[type="search"] {
+  background: var(--color-primary-light) url("../../assets/images/icons/lupa/Shape.png") no-repeat 2rem center;
+  border: solid 1px var(--color-primary-light);
+  padding: 9px 10px 9px 50px;
+  width: 100%;
+  height: 4rem;
+
+  -webkit-border-radius: 10em;
+  -moz-border-radius: 10em;
+  border-radius: 10em;
+
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+input:-moz-placeholder {
+  color: var(--color-primary);
+}
+input::-webkit-input-placeholder {
+  color: var(--color-primary);
+}
+
+@media (min-width: 700px) {
+  #page-hero-detail {
+    max-width: 100vw;
+  }
+
+  #page-hero-detail main {
+    padding: 3.2rem 0;
+    max-width: 80%;
+    margin: 0 auto;
+    grid-template-columns: repeat(4, minmax(20rem, 0.2fr));
+  }
+
+  #page-hero-detail .page-header {
+    display: flex;
+  }
+
+  #page-hero-detail .hero-detail {
+    margin: 0;
+    display: flex;
+    height: 80%;
+  }
+
+  #page-hero-detail .hero-detail .hero-image {
+    order: 1;
+    margin-left: 3rem;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  #page-hero-detail .hero-detail .hero-image img {
+    height: 100%;
+    /* border-bottom: 0.6rem solid var(--color-primary); */
+    object-fit: contain;
+  }
+}
