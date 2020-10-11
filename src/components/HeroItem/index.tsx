@@ -12,8 +12,25 @@ interface HeroThumbail {
 export interface Hero {
   id: number;
   name: string;
+  modified: string;
   description: string;
   thumbnail: HeroThumbail;
+  resourceURI: string;
+  comics: {
+    available: number;
+    collectionURI: string;
+    items: Array<object>;
+    returned: number;
+  };
+  series: object;
+  stories: {
+    available: number;
+    collectionURI: string;
+    items: Array<object>;
+    returned: number;
+  };
+  events: object;
+  urls: Array<object>;
 }
 
 interface HeroItemProps {
