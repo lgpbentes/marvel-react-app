@@ -16,7 +16,7 @@ function HeroesList() {
 
   async function getCharacters() {
 
-    const response = await CharactersApi.getCharacters();
+    const response = await CharactersApi.getCharacters({});
     const { total, count, results } = response.data;
 
     setHeroes(results);

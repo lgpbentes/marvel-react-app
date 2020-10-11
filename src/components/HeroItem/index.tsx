@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 import heartIcon from '../../assets/images/icons/heart/Path.svg';
 
@@ -38,26 +39,28 @@ interface HeroItemProps {
 }
 
 const HeroItem: React.FC<HeroItemProps> = ({ hero }) => {
-  
-  return (
-    <article className="hero-item">
-      <figure>
-        <img src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`} alt={hero.name} />
-      </figure>
 
-      <footer>
-        <p>
-          <strong>{hero.name}</strong>
-        </p>
-        <a 
-          target="_blank" 
-          onClick={() => {console.log('liked')}} 
+  return (
+    <Link to={`/detail/${hero.id}`} style={{ textDecoration: 'none' }}>
+      <article className="hero-item" >
+        <figure>
+          <img src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`} alt={hero.name} />
+        </figure>
+
+        <footer>
+          <p>
+            <strong>{hero.name}</strong>
+          </p>
+          {/* <a
+          target="_blank"
+          onClick={() => { console.log('liked') }}
           href={`https://google.com`}
         >
           <img src={heartIcon} alt="Favorito" />
-        </a>
-      </footer>
-    </article>
+        </a> */}
+        </footer>
+      </article>
+    </Link>
   );
 }
 
