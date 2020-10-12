@@ -52,13 +52,6 @@ const HeroItem: React.FC<HeroItemProps> = ({ hero, isFav, handleAddFav }) => {
         <p>
           <strong>{hero.name}</strong>
         </p>
-        {/* <a
-          target="_blank"
-          onClick={() => { console.log('liked') }}
-          href={`https://google.com`}
-        >
-          <img src={heartIcon} alt="Favorito" />
-        </a> */}
         {
           isFav
             ? <BsHeartFill style={{ color: 'red', fontSize: '2rem', cursor: "pointer" }} onClick={() => handleAddFav(hero)} />

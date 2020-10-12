@@ -57,12 +57,18 @@ const HeroesList: React.FC<HeroesListProps> = () => {
     }
 
     setFavorites([...favsArray]);
+    localStorage.setItem('favorites', JSON.stringify(favsArray));
   }
 
   useEffect(() => {
     const params = {
       query: queryParams?.term || undefined,
     };
+
+    const storedFavs = JSON.parse(localStorage.getItem('favorites') || '0');
+    if (storedFavs !== 0) {
+      setFavorites([...storedFavs]);
+    }
 
     getCharacters(params);
   }, [])
