@@ -1,6 +1,7 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 
 import HeroItem, { Hero } from '../../components/HeroItem';
+import SearchInput from '../../components/SearchInput';
 
 import { CharactersApi } from '../../services/marvel-api';
 
@@ -14,7 +15,6 @@ import './styles.css';
 function HeroesList() {
   const [heroes, setHeroes] = useState([]);
   const [totalResults, setTotalResults] = useState(undefined);
-  const [query, setQuery] = useState('');
 
   async function getCharacters({ query }: { query?: string }) {
 
@@ -39,12 +39,8 @@ function HeroesList() {
         <h1 className="page-title">EXPLORE O UNIVERSO</h1>
         <p><strong className="page-info">Mergulhe no domínio deslumbrante de todos os personagens clássicos que você ama - e aqueles que você descobrirá em breve!</strong></p>
       </header>
-      <form id="search-form" onSubmit={(e) => {
-        e.preventDefault();
-        getCharacters({ query })
-      }}>
-        <input type="search" placeholder="Procure por heróis" value={query} onChange={(e) => { setQuery(e.target.value) }} />
-      </form>
+      <SearchInput handleSubmit={(query: string) => { getCharacters({ query }) }} />
+
       <main>
         {totalResults
           ? <nav className="search-nav">
