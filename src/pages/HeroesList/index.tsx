@@ -37,13 +37,19 @@ const HeroesList: React.FC<HeroesListProps> = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   async function getCharacters({ query }: { query?: string }) {
-    setIsLoading(true);
-    const response = await CharactersApi.getCharacters({ query });
-    const { total, count, results } = response.data;
+    try {
+      setIsLoading(true);
+      const response = await CharactersApi.getCharacters({ query });
+      const { total, count, results } = response.data;
 
-    setHeroes(results);
-    setTotalResults(count);
-    setIsLoading(false);
+      setHeroes(results);
+      setTotalResults(count);
+    } catch (error) {
+      alert('Algo deu errado!');
+    } finally {
+      setIsLoading(false);
+    }
+
   }
 
   function addFav(hero: Hero) {

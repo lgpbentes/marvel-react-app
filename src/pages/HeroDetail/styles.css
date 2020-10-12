@@ -1,8 +1,6 @@
 #page-hero-detail {
   background-color: var(--color-secondary);
   width: 100vw;
-  display: flex;
-  flex-direction: column;
 }
 
 #page-hero-detail .page-footer {
@@ -12,9 +10,6 @@
   width: 100%;
   height: 4rem;
   background-color: var(--color-primary);
-
-  min-height: 4rem;
-  margin-top: auto;
 }
 
 #page-hero-detail .page-header {

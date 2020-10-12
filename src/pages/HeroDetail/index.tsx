@@ -34,18 +34,29 @@ const HeroDetail: React.FC<HeroDetailProps> = (props) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   async function getCharacterDetail(id: number) {
-    setIsLoading(true);
-    const response = await CharactersApi.getCharacters({ id });
-    const { results } = response.data;
+    try {
+      setIsLoading(true);
+      const response = await CharactersApi.getCharacters({ id });
+      const { results } = response.data;
 
-    setHero(results[0]);
+      setHero(results[0]);
+    } catch (error) {
+      alert('Algo deu errado!');
+      setIsLoading(false);
+    }
+
   }
 
   async function getCharacterReleases(id: number) {
-    const response = await CharactersApi.getCharacterReleases({ id });
-    const { results } = response.data;
-    setIsLoading(false);
-    setReleases(results);
+    try {
+      const response = await CharactersApi.getCharacterReleases({ id });
+      const { results } = response.data;
+      setReleases(results);
+    } catch (error) {
+      alert("Algo deu errado!");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   function handleAddFav(hero: Hero) {
