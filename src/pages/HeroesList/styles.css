@@ -1,6 +1,7 @@
 #page-heroes-list {
   width: 100vw;
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 #page-heroes-list .page-footer {
@@ -10,6 +11,9 @@
   width: 100%;
   height: 4rem;
   background-color: var(--color-primary);
+
+  min-height: 4rem;
+  margin-top: auto;
 }
 
 #page-heroes-list .page-header {
@@ -70,7 +74,8 @@
   font-size: 1rem;
 }
 
-#page-heroes-list .order-by p, label {
+#page-heroes-list .order-by p,
+label {
   margin-left: 0.5rem;
 }
 
@@ -128,7 +133,6 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-
 @media (min-width: 700px) {
   #page-heroes-list {
     max-width: 100vw;
@@ -160,10 +164,10 @@ input:checked + .slider:before {
   }
 
   #page-heroes-list .order-by {
-    font-size: 1.5rem
+    font-size: 1.5rem;
   }
 
-  #page-heroes-list .order-by .switch{
+  #page-heroes-list .order-by .switch {
     width: 60px;
   }
 

@@ -4,6 +4,7 @@ import { BsHeartFill } from 'react-icons/bs';
 
 import HeroItem, { Hero } from '../../components/HeroItem';
 import SearchInput from '../../components/SearchInput';
+import Loading from '../../components/Loading';
 
 import { CharactersApi } from '../../services/marvel-api';
 
@@ -33,14 +34,16 @@ const HeroesList: React.FC<HeroesListProps> = () => {
   const [favorites, setFavorites] = useState([] as Array<Hero>);
   const [currentQuery, setCurrentQuery] = useState(undefined);
   const [showOnlyFavs, setShowOnlyFavs] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   async function getCharacters({ query }: { query?: string }) {
-
+    setIsLoading(true);
     const response = await CharactersApi.getCharacters({ query });
     const { total, count, results } = response.data;
 
     setHeroes(results);
     setTotalResults(count);
+    setIsLoading(false);
   }
 
   function addFav(hero: Hero) {
@@ -83,7 +86,7 @@ const HeroesList: React.FC<HeroesListProps> = () => {
       setFavorites([...storedFavs]);
     }
 
-    getCharacters({query: queryParam});
+    getCharacters({ query: queryParam });
   }, []);
 
   return (
@@ -102,30 +105,31 @@ const HeroesList: React.FC<HeroesListProps> = () => {
       }} />
 
       <main>
-        {totalResults
-          ? <nav className="search-nav">
-            <div className="total-results">
-              <p>Encontrados {totalResults} heróis</p>
-            </div>
-            <div className="order-by">
-              <img src={heroIcon} alt={'hero'} />
-              <p>Ordenar por nome - A/Z</p>
-              <label className="switch">
-                <input type="checkbox" readOnly onClick={handleOrderBy} checked={showOnlyFavs} />
-                <span className="slider"></span>
-              </label>
-              <BsHeartFill style={{ color: 'red', fontSize: '3rem' }} />
-              <p>Somente favoritos</p>
-            </div>
-          </nav>
-          : <></>
-        }
-        <div className="heroes-list">
-          {heroes.map((hero: Hero) => {
-            return <HeroItem key={hero.id} hero={hero} isFav={favorites.findIndex((fav) => fav.id === hero.id) !== -1} handleAddFav={addFav} />;
-          })}
-        </div>
-
+        {isLoading ? <Loading /> : <>
+          {totalResults
+            ? <nav className="search-nav">
+              <div className="total-results">
+                <p>Encontrados {totalResults} heróis</p>
+              </div>
+              <div className="order-by">
+                <img src={heroIcon} alt={'hero'} />
+                <p>Ordenar por nome - A/Z</p>
+                <label className="switch">
+                  <input type="checkbox" readOnly onClick={handleOrderBy} checked={showOnlyFavs} />
+                  <span className="slider"></span>
+                </label>
+                <BsHeartFill style={{ color: 'red', fontSize: '3rem' }} />
+                <p>Somente favoritos</p>
+              </div>
+            </nav>
+            : <></>
+          }
+          <div className="heroes-list">
+            {heroes.map((hero: Hero) => {
+              return <HeroItem key={hero.id} hero={hero} isFav={favorites.findIndex((fav) => fav.id === hero.id) !== -1} handleAddFav={addFav} />;
+            })}
+          </div>
+        </>}
       </main>
       {/* TODO: create footer component */}
       <footer className="page-footer">

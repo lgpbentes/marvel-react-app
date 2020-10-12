@@ -10,6 +10,10 @@
   --color-text-light: #B9B9B9;
 }
 
+html,body {
+  height:100%;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -25,6 +29,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
 
 body,
@@ -38,6 +43,7 @@ textarea {
 .container {
   width: 90vw;
   max-width: 700px;
+  height: 100%;
 }
 
 @media (min-width: 700px) {
