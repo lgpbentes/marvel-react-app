@@ -26,11 +26,11 @@ function useQuery() {
 }
 
 const HeroesList: React.FC<HeroesListProps> = () => {
-  const queryParams : any = useQuery();
-  const history = useHistory();
+  const queryParams: any = useQuery();
 
   const [heroes, setHeroes] = useState([]);
   const [totalResults, setTotalResults] = useState(undefined);
+  const [favorites, setFavorites] = useState([] as Array<Hero>);
 
   async function getCharacters({ query }: { query?: string }) {
 
@@ -41,9 +41,27 @@ const HeroesList: React.FC<HeroesListProps> = () => {
     setTotalResults(count);
   }
 
+  function addFav(hero: Hero) {
+    let favsArray = favorites;
+
+    const favIndex = favsArray.findIndex((fav) => fav.id === hero.id)
+    if (favIndex !== -1) {
+      // hero already in list, we want to remove it
+      favsArray.splice(favIndex, 1);
+    } else {
+      if (favorites.length < 5) {
+        favsArray.push(hero);
+      } else {
+        alert('Você já possui 5 heróis marcados como favorito. Remova heróis da sua lista para adicionar novos.')
+      }
+    }
+
+    setFavorites([...favsArray]);
+  }
+
   useEffect(() => {
     const params = {
-      query: queryParams.term || undefined,
+      query: queryParams?.term || undefined,
     };
 
     getCharacters(params);
@@ -59,7 +77,7 @@ const HeroesList: React.FC<HeroesListProps> = () => {
         <h1 className="page-title">EXPLORE O UNIVERSO</h1>
         <p><strong className="page-info">Mergulhe no domínio deslumbrante de todos os personagens clássicos que você ama - e aqueles que você descobrirá em breve!</strong></p>
       </header>
-      <SearchInput queryParam={queryParams.term || undefined} handleSubmit={(query: string) => { getCharacters({ query }) }} />
+      <SearchInput queryParam={queryParams?.term || undefined} handleSubmit={(query: string) => { getCharacters({ query }) }} />
 
       <main>
         {totalResults
@@ -86,7 +104,7 @@ const HeroesList: React.FC<HeroesListProps> = () => {
         }
         <div className="heroes-list">
           {heroes.map((hero: Hero) => {
-            return <HeroItem key={hero.id} hero={hero} />;
+            return <HeroItem key={hero.id} hero={hero} isFav={favorites.findIndex((fav) => fav.id === hero.id) !== -1} handleAddFav={addFav} />;
           })}
         </div>
 
