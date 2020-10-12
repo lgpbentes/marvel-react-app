@@ -1,4 +1,5 @@
-import React, { useState, useEffect, FormEvent } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useHistory } from "react-router-dom";
 
 import HeroItem, { Hero } from '../../components/HeroItem';
 import SearchInput from '../../components/SearchInput';
@@ -12,7 +13,22 @@ import heartIcon from '../../assets/images/icons/heart/Path.png';
 
 import './styles.css';
 
-function HeroesList() {
+interface HeroesListProps {
+  location: {
+    search: {
+      query: string;
+    };
+  };
+}
+
+function useQuery() {
+  return useLocation().state;
+}
+
+const HeroesList: React.FC<HeroesListProps> = () => {
+  const queryParams : any = useQuery();
+  const history = useHistory();
+
   const [heroes, setHeroes] = useState([]);
   const [totalResults, setTotalResults] = useState(undefined);
 
@@ -26,7 +42,11 @@ function HeroesList() {
   }
 
   useEffect(() => {
-    getCharacters({});
+    const params = {
+      query: queryParams.term || undefined,
+    };
+
+    getCharacters(params);
   }, [])
 
   return (
@@ -39,7 +59,7 @@ function HeroesList() {
         <h1 className="page-title">EXPLORE O UNIVERSO</h1>
         <p><strong className="page-info">Mergulhe no domínio deslumbrante de todos os personagens clássicos que você ama - e aqueles que você descobrirá em breve!</strong></p>
       </header>
-      <SearchInput handleSubmit={(query: string) => { getCharacters({ query }) }} />
+      <SearchInput queryParam={queryParams.term || undefined} handleSubmit={(query: string) => { getCharacters({ query }) }} />
 
       <main>
         {totalResults

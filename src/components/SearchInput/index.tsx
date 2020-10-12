@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 
 import heartIcon from '../../assets/images/icons/heart/Path.svg';
@@ -14,6 +14,12 @@ interface SearchInputProps {
 
 const SearchInput: React.FC<SearchInputProps> = ({ queryParam, styleType, handleSubmit }) => {
   const [query, setQuery] = useState('');
+
+  useEffect(() => {
+    if (queryParam) {
+      setQuery(queryParam);
+    }
+  }, []);
 
   return (
     <form id="search-form" onSubmit={(e) => {

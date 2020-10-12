@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 
 import { Hero } from '../../components/HeroItem';
+import SearchInput from '../../components/SearchInput';
 
 import { CharactersApi } from '../../services/marvel-api';
 
@@ -21,6 +23,8 @@ interface HeroDetailProps {
 }
 
 const HeroDetail: React.FC<HeroDetailProps> = (props) => {
+  const history = useHistory();
+
   const [hero, setHero] = useState<Hero | undefined>(undefined);
   const [releases, setReleases] = useState<any>([]);
 
@@ -43,7 +47,7 @@ const HeroDetail: React.FC<HeroDetailProps> = (props) => {
 
     getCharacterDetail(params.id);
     getCharacterReleases(params.id);
-  }, [])
+  }, []);
 
   return (
     <div id="page-hero-detail" className="container">
@@ -54,9 +58,7 @@ const HeroDetail: React.FC<HeroDetailProps> = (props) => {
             <img src={logoImage} alt="Marvel Search Heros" />
           </figure>
         </a>
-        <form id="search-form">
-          <input type="search" placeholder="Procure por heróis" />
-        </form>
+        <SearchInput styleType={'detail'} handleSubmit={(query: string) => { history.push({ pathname: '/', state: { term: query } }) }} />
       </header>
       <main>
         {
