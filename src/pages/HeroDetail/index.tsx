@@ -6,8 +6,9 @@ import SearchInput from '../../components/SearchInput';
 
 import { CharactersApi } from '../../services/marvel-api';
 
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
+
 import logoImage from '../../assets/images/logo/Group.png';
-import heartIcon from '../../assets/images/icons/heart/Path.png';
 import reviewImage from '../../assets/images/review/Group.png';
 import videoIcon from '../../assets/images/icons/video/shape.svg';
 import bookIcon from '../../assets/images/icons/book/Group.svg';
@@ -27,6 +28,8 @@ const HeroDetail: React.FC<HeroDetailProps> = (props) => {
 
   const [hero, setHero] = useState<Hero | undefined>(undefined);
   const [releases, setReleases] = useState<any>([]);
+  const [favorites, setFavorites] = useState([] as Array<Hero>);
+  const [isFav, setIsFav] = useState<boolean>(false);
 
   async function getCharacterDetail(id: number) {
     const response = await CharactersApi.getCharacters({ id });
@@ -42,8 +45,38 @@ const HeroDetail: React.FC<HeroDetailProps> = (props) => {
     setReleases(results);
   }
 
+  function handleAddFav(hero: Hero) {
+    let favsArray = favorites;
+
+    const favIndex = favsArray.findIndex((fav) => fav.id === hero.id)
+    if (favIndex !== -1) {
+      // hero already in list, we want to remove it
+      setIsFav(false);
+      favsArray.splice(favIndex, 1);
+    } else {
+      if (favorites.length < 5) {
+        setIsFav(true);
+        favsArray.push(hero);
+      } else {
+        alert('Você já possui 5 heróis marcados como favorito. Remova heróis da sua lista para adicionar novos.')
+      }
+    }
+
+    setFavorites([...favsArray]);
+    localStorage.setItem('favorites', JSON.stringify(favsArray));
+  }
+
   useEffect(() => {
     const { match: { params } } = props;
+
+    const storedFavs = JSON.parse(localStorage.getItem('favorites') || '0');
+    if (storedFavs !== 0) {
+      setFavorites([...storedFavs]);
+
+      if (storedFavs.findIndex((fav: Hero) => `${fav.id}` === `${params.id}`) !== -1) {
+        setIsFav(true);
+      }
+    }
 
     getCharacterDetail(params.id);
     getCharacterReleases(params.id);
@@ -71,7 +104,13 @@ const HeroDetail: React.FC<HeroDetailProps> = (props) => {
                 <section className="hero-info">
                   <div className="hero-title">
                     <span>{hero.name}</span>
-                    <img src={heartIcon} alt='heart' />
+                    <span>
+                    {
+                      isFav
+                        ? <BsHeartFill style={{ color: 'red', fontSize: '3rem', cursor: "pointer" }} onClick={() => handleAddFav(hero)} />
+                        : <BsHeart style={{ color: 'red', fontSize: '3rem', cursor: "pointer" }} onClick={() => handleAddFav(hero)} />
+                    }
+                    </span>
                   </div>
 
                   <p className="hero-description">{hero.description}</p>

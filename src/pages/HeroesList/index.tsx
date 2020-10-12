@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import HeroItem, { Hero } from '../../components/HeroItem';
 import SearchInput from '../../components/SearchInput';
