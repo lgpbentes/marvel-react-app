@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from "react-router-dom";
+import { BsHeartFill } from 'react-icons/bs';
 
 import HeroItem, { Hero } from '../../components/HeroItem';
 import SearchInput from '../../components/SearchInput';
@@ -8,7 +9,6 @@ import { CharactersApi } from '../../services/marvel-api';
 
 import logoImage from '../../assets/images/logo/Group.png';
 import heroIcon from '../../assets/images/icons/heroi/superhero.png';
-import heartIcon from '../../assets/images/icons/heart/Path.png';
 
 
 import './styles.css';
@@ -26,11 +26,13 @@ function useQuery() {
 }
 
 const HeroesList: React.FC<HeroesListProps> = () => {
-  const queryParams: any = useQuery();
+  let queryParams: any = useQuery();
 
-  const [heroes, setHeroes] = useState([]);
+  const [heroes, setHeroes] = useState([] as Array<Hero>);
   const [totalResults, setTotalResults] = useState(undefined);
   const [favorites, setFavorites] = useState([] as Array<Hero>);
+  const [currentQuery, setCurrentQuery] = useState(undefined);
+  const [showOnlyFavs, setShowOnlyFavs] = useState(false);
 
   async function getCharacters({ query }: { query?: string }) {
 
@@ -60,18 +62,29 @@ const HeroesList: React.FC<HeroesListProps> = () => {
     localStorage.setItem('favorites', JSON.stringify(favsArray));
   }
 
+  function handleOrderBy() {
+    const onlyFavs = !showOnlyFavs;
+    setShowOnlyFavs(onlyFavs)
+
+    if (onlyFavs) {
+      setCurrentQuery(undefined);
+      setHeroes(favorites);
+    } else {
+      getCharacters({});
+    }
+  }
+
   useEffect(() => {
-    const params = {
-      query: queryParams?.term || undefined,
-    };
+    const queryParam = queryParams?.term || undefined;
+    setCurrentQuery(queryParam);
 
     const storedFavs = JSON.parse(localStorage.getItem('favorites') || '0');
     if (storedFavs !== 0) {
       setFavorites([...storedFavs]);
     }
 
-    getCharacters(params);
-  }, [])
+    getCharacters({query: queryParam});
+  }, []);
 
   return (
     <div id="page-heroes-list" className="container">
@@ -83,7 +96,10 @@ const HeroesList: React.FC<HeroesListProps> = () => {
         <h1 className="page-title">EXPLORE O UNIVERSO</h1>
         <p><strong className="page-info">Mergulhe no domínio deslumbrante de todos os personagens clássicos que você ama - e aqueles que você descobrirá em breve!</strong></p>
       </header>
-      <SearchInput queryParam={queryParams?.term || undefined} handleSubmit={(query: string) => { getCharacters({ query }) }} />
+      <SearchInput queryParam={currentQuery} handleSubmit={(query: string) => {
+        setShowOnlyFavs(false);
+        getCharacters({ query });
+      }} />
 
       <main>
         {totalResults
@@ -91,19 +107,15 @@ const HeroesList: React.FC<HeroesListProps> = () => {
             <div className="total-results">
               <p>Encontrados {totalResults} heróis</p>
             </div>
-            <div className="filters">
-              <div className="order-by">
-                <img src={heroIcon} alt={'hero'} />
-                <p>Ordenar por nome - A/Z</p>
-                <label className="switch">
-                  <input type="checkbox" />
-                  <span className="slider"></span>
-                </label>
-              </div>
-              <div className="filter-favs">
-                <img src={heartIcon} alt={'heart'} />
-                <p>Somente favoritos</p>
-              </div>
+            <div className="order-by">
+              <img src={heroIcon} alt={'hero'} />
+              <p>Ordenar por nome - A/Z</p>
+              <label className="switch">
+                <input type="checkbox" readOnly onClick={handleOrderBy} checked={showOnlyFavs} />
+                <span className="slider"></span>
+              </label>
+              <BsHeartFill style={{ color: 'red', fontSize: '3rem' }} />
+              <p>Somente favoritos</p>
             </div>
           </nav>
           : <></>

@@ -63,20 +63,14 @@
 
 #page-heroes-list .order-by {
   display: flex;
+  justify-content: flex-end;
   align-items: center;
+  color: var(--color-primary);
+  flex-wrap: nowrap;
+  font-size: 1rem;
 }
 
 #page-heroes-list .order-by p, label {
-  margin-left: 0.5rem;
-}
-
-#page-heroes-list .filter-favs {
-  display: flex;
-  align-items: center;
-  margin-left: 1rem;
-}
-
-#page-heroes-list .filter-favs p {
   margin-left: 0.5rem;
 }
 
@@ -90,8 +84,10 @@
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 10rem;
+  height: 3rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
 }
 
 .switch input {
@@ -116,8 +112,8 @@
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
+  height: 2.3rem;
+  width: 2.3rem;
   left: 4px;
   bottom: 4px;
   background-color: #ff1510;
@@ -163,14 +159,13 @@ input:checked + .slider:before {
     margin-bottom: 0;
   }
 
-  #page-heroes-list .filters {
+  #page-heroes-list .order-by {
     font-size: 1.5rem
   }
 
-  #page-heroes-list .filter-favs {
-    margin-left: 2rem;
+  #page-heroes-list .order-by .switch{
+    width: 60px;
   }
-
 
   #page-heroes-list .search-nav {
     justify-content: space-between;

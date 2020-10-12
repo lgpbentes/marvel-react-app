@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
-
-import heartIcon from '../../assets/images/icons/heart/Path.svg';
 
 import './styles.css';
-
 
 interface SearchInputProps {
   queryParam?: string,
@@ -19,7 +15,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ queryParam, styleType, handle
     if (queryParam) {
       setQuery(queryParam);
     }
-  }, []);
+  }, [queryParam]);
 
   return (
     <form id="search-form" onSubmit={(e) => {
