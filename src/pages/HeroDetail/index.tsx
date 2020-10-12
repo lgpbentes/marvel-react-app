@@ -14,6 +14,7 @@ import videoIcon from '../../assets/images/icons/video/shape.svg';
 import bookIcon from '../../assets/images/icons/book/Group.svg';
 
 import './styles.css';
+import Loading from '../../components/Loading';
 
 interface HeroDetailProps {
   match: {
@@ -30,8 +31,10 @@ const HeroDetail: React.FC<HeroDetailProps> = (props) => {
   const [releases, setReleases] = useState<any>([]);
   const [favorites, setFavorites] = useState([] as Array<Hero>);
   const [isFav, setIsFav] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   async function getCharacterDetail(id: number) {
+    setIsLoading(true);
     const response = await CharactersApi.getCharacters({ id });
     const { results } = response.data;
 
@@ -41,7 +44,7 @@ const HeroDetail: React.FC<HeroDetailProps> = (props) => {
   async function getCharacterReleases(id: number) {
     const response = await CharactersApi.getCharacterReleases({ id });
     const { results } = response.data;
-
+    setIsLoading(false);
     setReleases(results);
   }
 
@@ -95,8 +98,9 @@ const HeroDetail: React.FC<HeroDetailProps> = (props) => {
       </header>
       <main>
         {
-          hero ?
-            <>
+          isLoading || hero === undefined
+            ? <Loading />
+            : <>
               <article className="hero-detail">
                 <figure className="hero-image">
                   <img src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`} alt={hero.name} />
@@ -105,11 +109,11 @@ const HeroDetail: React.FC<HeroDetailProps> = (props) => {
                   <div className="hero-title">
                     <span>{hero.name}</span>
                     <span>
-                    {
-                      isFav
-                        ? <BsHeartFill style={{ color: 'red', fontSize: '3rem', cursor: "pointer" }} onClick={() => handleAddFav(hero)} />
-                        : <BsHeart style={{ color: 'red', fontSize: '3rem', cursor: "pointer" }} onClick={() => handleAddFav(hero)} />
-                    }
+                      {
+                        isFav
+                          ? <BsHeartFill style={{ color: 'red', fontSize: '3rem', cursor: "pointer" }} onClick={() => handleAddFav(hero)} />
+                          : <BsHeart style={{ color: 'red', fontSize: '3rem', cursor: "pointer" }} onClick={() => handleAddFav(hero)} />
+                      }
                     </span>
                   </div>
 
@@ -160,7 +164,6 @@ const HeroDetail: React.FC<HeroDetailProps> = (props) => {
                 </div>
               </section>
             </>
-            : <></>
         }
       </main>
       {/* TODO: create footer component */}
