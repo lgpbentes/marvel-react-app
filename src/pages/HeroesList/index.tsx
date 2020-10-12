@@ -109,7 +109,12 @@ const HeroesList: React.FC<HeroesListProps> = () => {
           {totalResults
             ? <nav className="search-nav">
               <div className="total-results">
-                <p>Encontrados {totalResults} heróis</p>
+                {
+                  showOnlyFavs
+                    ? <p>Encontrados {favorites.length} favoritos</p>
+                    : <p>Encontrados {totalResults} heróis</p>
+
+                }
               </div>
               <div className="order-by">
                 <img src={heroIcon} alt={'hero'} />
