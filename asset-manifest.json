@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/marvel-react-app/static/css/main.66939bd9.chunk.css",
+    "main.js": "/marvel-react-app/static/js/main.28bcf6bd.chunk.js",
+    "main.js.map": "/marvel-react-app/static/js/main.28bcf6bd.chunk.js.map",
+    "runtime-main.js": "/marvel-react-app/static/js/runtime-main.2cf90057.js",
+    "runtime-main.js.map": "/marvel-react-app/static/js/runtime-main.2cf90057.js.map",
+    "static/js/2.1a8f7a33.chunk.js": "/marvel-react-app/static/js/2.1a8f7a33.chunk.js",
+    "static/js/2.1a8f7a33.chunk.js.map": "/marvel-react-app/static/js/2.1a8f7a33.chunk.js.map",
+    "index.html": "/marvel-react-app/index.html",
+    "precache-manifest.461dd22f9e5321b3a66f97f94fb1fec8.js": "/marvel-react-app/precache-manifest.461dd22f9e5321b3a66f97f94fb1fec8.js",
+    "service-worker.js": "/marvel-react-app/service-worker.js",
+    "static/css/main.66939bd9.chunk.css.map": "/marvel-react-app/static/css/main.66939bd9.chunk.css.map",
+    "static/js/2.1a8f7a33.chunk.js.LICENSE.txt": "/marvel-react-app/static/js/2.1a8f7a33.chunk.js.LICENSE.txt",
+    "static/media/Group.svg": "/marvel-react-app/static/media/Group.32bf5cc4.svg",
+    "static/media/Group.png": "/marvel-react-app/static/media/Group.c435293b.png",
+    "static/media/shape.svg": "/marvel-react-app/static/media/shape.a196f948.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2cf90057.js",
+    "static/js/2.1a8f7a33.chunk.js",
+    "static/css/main.66939bd9.chunk.css",
+    "static/js/main.28bcf6bd.chunk.js"
+  ]
+}
