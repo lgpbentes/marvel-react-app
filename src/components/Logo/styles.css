@@ -1,0 +1,28 @@
+#logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+#logo-wrapper.default {
+  height: 8rem;
+}
+
+#logo-wrapper.detail {
+  height: 5rem;
+}
+
+#logo-wrapper.default h1 {
+  margin-top: 2rem;
+}
+
+#logo-wrapper h1 {
+  margin-left: 1rem;
+  font-size: 1.8rem;
+}
+
+#logo-wrapper img {
+  height: 100%;
+}
