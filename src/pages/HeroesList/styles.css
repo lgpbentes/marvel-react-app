@@ -3,15 +3,6 @@
   min-height: 100vh;
 }
 
-#page-heroes-list .page-footer {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 4rem;
-  background-color: var(--color-primary);
-}
-
 #page-heroes-list .page-header {
   position: blocked;
   left: 0;

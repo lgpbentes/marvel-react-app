@@ -16,6 +16,7 @@ import bookIcon from '../../assets/images/icons/book/Group.svg';
 import './styles.css';
 import Loading from '../../components/Loading';
 import Logo from '../../components/Logo';
+import Footer from '../../components/Footer';
 
 interface HeroDetailProps {
   match: {
@@ -174,9 +175,7 @@ const HeroDetail: React.FC<HeroDetailProps> = (props) => {
             </>
         }
       </main>
-      {/* TODO: create footer component */}
-      <footer className="page-footer">
-      </footer>
+      <Footer />
     </div>
   )
 }

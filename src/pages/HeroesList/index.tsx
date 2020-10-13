@@ -15,6 +15,7 @@ import heroIcon from '../../assets/images/icons/heroi/superhero.png';
 import './styles.css';
 import Switcher from '../../components/Switcher';
 import Logo from '../../components/Logo';
+import Footer from '../../components/Footer';
 
 interface HeroesListProps {
   location: {
@@ -137,9 +138,7 @@ const HeroesList: React.FC<HeroesListProps> = () => {
           </div>
         </>}
       </main>
-      {/* TODO: create footer component */}
-      <footer className="page-footer">
-      </footer>
+      <Footer />
     </div>
   )
 }
