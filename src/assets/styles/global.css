@@ -1,13 +1,13 @@
 :root {
   font-size: 60%;
 
-  --color-background: #FFFFFF;
-  --color-primary: #FF1510;
-  --color-primary-light: #FDECEC;
-  --color-secondary: #E7F6E7;
+  --color-background: #ffffff;
+  --color-primary: #ff1510;
+  --color-primary-light: #fdecec;
+  --color-secondary: #e7f6e7;
   --color-text-base: #404040;
-  --color-text-secondary: #8C8C8C;
-  --color-text-light: #B9B9B9;
+  --color-text-secondary: #8c8c8c;
+  --color-text-light: #b9b9b9;
 }
 
 * {
@@ -16,9 +16,16 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+}
 
 body {
   background: var(--color-background);
+  position: relative;
+  margin: 0;
+  padding-bottom: 2rem;
+  min-height: 100%;
 }
 
 #root {

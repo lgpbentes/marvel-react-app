@@ -1,19 +1,15 @@
 #page-heroes-list {
   width: 100vw;
-  display: flex;
-  flex-direction: column;
+  min-height: 100vh;
 }
 
 #page-heroes-list .page-footer {
-  position: blocked;
-  left: 0;
+  position: absolute;
+  right: 0;
   bottom: 0;
-  width: 100%;
+  left: 0;
   height: 4rem;
   background-color: var(--color-primary);
-
-  min-height: 4rem;
-  margin-top: auto;
 }
 
 #page-heroes-list .page-header {

@@ -1,13 +1,14 @@
 #page-hero-detail {
   background-color: var(--color-secondary);
   width: 100vw;
+  min-height: 100vh;
 }
 
 #page-hero-detail .page-footer {
-  position: blocked;
-  left: 0;
+  position: absolute;
+  right: 0;
   bottom: 0;
-  width: 100%;
+  left: 0;
   height: 4rem;
   background-color: var(--color-primary);
 }
@@ -144,6 +145,8 @@
 
   #page-hero-detail .page-header {
     display: flex;
+    align-items: center;
+    padding-left: 6rem;
   }
 
   #page-hero-detail .hero-detail {
@@ -161,7 +164,6 @@
 
   #page-hero-detail .hero-detail .hero-image img {
     height: 100%;
-    /* border-bottom: 0.6rem solid var(--color-primary); */
     object-fit: contain;
   }
 }
