@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from "react-router-dom";
+import { useLocation, Switch } from "react-router-dom";
 import { BsHeartFill } from 'react-icons/bs';
 
 import HeroItem, { Hero } from '../../components/HeroItem';
@@ -13,6 +13,7 @@ import heroIcon from '../../assets/images/icons/heroi/superhero.png';
 
 
 import './styles.css';
+import Switcher from '../../components/Switcher';
 
 interface HeroesListProps {
   location: {
@@ -71,8 +72,7 @@ const HeroesList: React.FC<HeroesListProps> = () => {
     localStorage.setItem('favorites', JSON.stringify(favsArray));
   }
 
-  function handleOrderBy() {
-    const onlyFavs = !showOnlyFavs;
+  function handleOrderBy(onlyFavs: boolean) {
     setShowOnlyFavs(onlyFavs)
 
     if (onlyFavs) {
@@ -125,10 +125,7 @@ const HeroesList: React.FC<HeroesListProps> = () => {
               <div className="order-by">
                 <img src={heroIcon} alt={'hero'} />
                 <p>Ordenar por nome - A/Z</p>
-                <label className="switch">
-                  <input type="checkbox" readOnly onClick={handleOrderBy} checked={showOnlyFavs} />
-                  <span className="slider"></span>
-                </label>
+                <Switcher handleClick={handleOrderBy}/>
                 <BsHeartFill style={{ color: 'red', fontSize: '3rem' }} />
                 <p>Somente favoritos</p>
               </div>
