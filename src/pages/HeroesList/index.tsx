@@ -14,6 +14,7 @@ import heroIcon from '../../assets/images/icons/heroi/superhero.png';
 
 import './styles.css';
 import Switcher from '../../components/Switcher';
+import Logo from '../../components/Logo';
 
 interface HeroesListProps {
   location: {
@@ -97,11 +98,8 @@ const HeroesList: React.FC<HeroesListProps> = () => {
 
   return (
     <div id="page-heroes-list" className="container">
-      {/* TODO: create header component */}
       <header className="page-header">
-        <figure>
-          <img src={logoImage} alt="Marvel Search Heros" />
-        </figure>
+        <Logo styleType={'default'}/>
         <h1 className="page-title">EXPLORE O UNIVERSO</h1>
         <p><strong className="page-info">Mergulhe no domínio deslumbrante de todos os personagens clássicos que você ama - e aqueles que você descobrirá em breve!</strong></p>
       </header>

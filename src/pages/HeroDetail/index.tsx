@@ -15,6 +15,7 @@ import bookIcon from '../../assets/images/icons/book/Group.svg';
 
 import './styles.css';
 import Loading from '../../components/Loading';
+import Logo from '../../components/Logo';
 
 interface HeroDetailProps {
   match: {
@@ -100,11 +101,7 @@ const HeroDetail: React.FC<HeroDetailProps> = (props) => {
     <div id="page-hero-detail" className="container">
       {/* TODO: create header component */}
       <header className="page-header">
-        <a href="/">
-          <figure>
-            <img src={logoImage} alt="Marvel Search Heros" />
-          </figure>
-        </a>
+        <Logo styleType='detail'/>
         <SearchInput styleType={'detail'} handleSubmit={(query: string) => { history.push({ pathname: '/', state: { term: query } }) }} />
       </header>
       <main>
