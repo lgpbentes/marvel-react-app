@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "template-react-native-app"
+  },
+  "targets": {
+    "template-react-native-app": {
+      "hosting": {
+        "search_app": [
+          "marvel-app"
+        ]
+      }
+    }
+  }
+}
