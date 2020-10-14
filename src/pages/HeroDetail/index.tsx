@@ -82,6 +82,21 @@ const HeroDetail: React.FC<HeroDetailProps> = (props) => {
     localStorage.setItem('favorites', JSON.stringify(favsArray));
   }
 
+  function handleSubmitSearch(query: string) {
+    history.push({
+      pathname: '/',
+      state: { term: query }
+    })
+  }
+
+  function formatDate(date: string) {
+    return new Date(date).toLocaleDateString('pt-BR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+  }
+
   useEffect(() => {
     const { match: { params } } = props;
 
@@ -100,10 +115,9 @@ const HeroDetail: React.FC<HeroDetailProps> = (props) => {
 
   return (
     <div id="page-hero-detail" className="container">
-      {/* TODO: create header component */}
       <header className="page-header">
-        <Logo styleType='detail'/>
-        <SearchInput styleType={'detail'} handleSubmit={(query: string) => { history.push({ pathname: '/', state: { term: query } }) }} />
+        <Logo styleType='detail' />
+        <SearchInput styleType={'detail'} handleSubmit={handleSubmitSearch} />
       </header>
       <main>
         {
@@ -120,8 +134,16 @@ const HeroDetail: React.FC<HeroDetailProps> = (props) => {
                     <span>
                       {
                         isFav
-                          ? <BsHeartFill style={{ color: 'red', fontSize: '3rem', cursor: "pointer" }} onClick={() => handleAddFav(hero)} />
-                          : <BsHeart style={{ color: 'red', fontSize: '3rem', cursor: "pointer" }} onClick={() => handleAddFav(hero)} />
+                          ? <BsHeartFill style={{
+                            color: 'red',
+                            fontSize: '3rem',
+                            cursor: 'pointer',
+                          }} onClick={() => handleAddFav(hero)} />
+                          : <BsHeart style={{
+                            color: 'red',
+                            fontSize: '3rem',
+                            cursor: 'pointer',
+                          }} onClick={() => handleAddFav(hero)} />
                       }
                     </span>
                   </div>
@@ -150,7 +172,7 @@ const HeroDetail: React.FC<HeroDetailProps> = (props) => {
                   </div>
                   <div className="hero-last-release">
                     <span>
-                      <strong>Último quadrinho: </strong>{new Date(hero.modified).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' })}
+                      <strong>Último quadrinho: </strong>{formatDate(hero.modified)}
                     </span>
                   </div>
                 </section>
