@@ -134,14 +134,19 @@ const HeroesList: React.FC<HeroesListProps> = () => {
                 <p>Somente favoritos</p>
               </div>
             </nav>
-            : <></>
+            :
+            <nav className="search-nav">
+              <div className="total-results">
+                <p>Sem resultados</p>
+              </div>
+            </nav>
           }
           <div className="heroes-list">
             {heroes.map((hero: Hero) => {
               return <HeroItem key={hero.id} hero={hero} isFav={favorites.findIndex((fav) => fav.id === hero.id) !== -1} handleAddFav={addFav} />;
             })}
           </div>
-          {showOnlyFavs
+          {showOnlyFavs || !totalResults
             ? <></>
             : <Pagination totalPages={Math.ceil(totalResults / 20)} currentPage={currentPage} handleClick={(page: number) => {
               setCurrentPage(page);
