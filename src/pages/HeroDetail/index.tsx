@@ -8,7 +8,6 @@ import { CharactersApi } from '../../services/marvel-api';
 
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 
-import logoImage from '../../assets/images/logo/Group.png';
 import reviewImage from '../../assets/images/review/Group.png';
 import videoIcon from '../../assets/images/icons/video/shape.svg';
 import bookIcon from '../../assets/images/icons/book/Group.svg';

@@ -1,8 +1,8 @@
 import api from './config';
 
 const Characters = {
-  getCharacters: async ({ id, query }: { id?: number, query?: string }) => {
-    const params: { characterId?: number, name?: string } = {};
+  getCharacters: async ({ id, query, offset = 0 }: { id?: number, query?: string, offset?: number }) => {
+    const params: { characterId?: number, name?: string, offset: number, limit: number } = { offset, limit: 20 };
     if (id) {
       params.characterId = id;
     }

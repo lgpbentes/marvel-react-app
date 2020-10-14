@@ -16,6 +16,7 @@ import './styles.css';
 import Switcher from '../../components/Switcher';
 import Logo from '../../components/Logo';
 import Footer from '../../components/Footer';
+import Pagination from '../../components/Pagination';
 
 interface HeroesListProps {
   location: {
@@ -33,20 +34,23 @@ const HeroesList: React.FC<HeroesListProps> = () => {
   let queryParams: any = useQuery();
 
   const [heroes, setHeroes] = useState([] as Array<Hero>);
-  const [totalResults, setTotalResults] = useState(undefined);
+  const [totalResults, setTotalResults] = useState(0);
+  const [countResults, setCountResults] = useState(0);
   const [favorites, setFavorites] = useState([] as Array<Hero>);
   const [currentQuery, setCurrentQuery] = useState(undefined);
   const [showOnlyFavs, setShowOnlyFavs] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  async function getCharacters({ query }: { query?: string }) {
+  async function getCharacters({ query, offset }: { query?: string, offset?: number }) {
     try {
       setIsLoading(true);
-      const response = await CharactersApi.getCharacters({ query });
+      const response = await CharactersApi.getCharacters({ query, offset: offset || 0 });
       const { total, count, results } = response.data;
 
       setHeroes(results);
-      setTotalResults(count);
+      setTotalResults(total);
+      setCountResults(count);
     } catch (error) {
       alert('Algo deu errado!');
     } finally {
@@ -100,12 +104,13 @@ const HeroesList: React.FC<HeroesListProps> = () => {
   return (
     <div id="page-heroes-list" className="container">
       <header className="page-header">
-        <Logo styleType={'default'}/>
+        <Logo styleType={'default'} />
         <h1 className="page-title">EXPLORE O UNIVERSO</h1>
         <p><strong className="page-info">Mergulhe no domínio deslumbrante de todos os personagens clássicos que você ama - e aqueles que você descobrirá em breve!</strong></p>
       </header>
       <SearchInput queryParam={currentQuery} handleSubmit={(query: string) => {
         setShowOnlyFavs(false);
+        setCurrentPage(1);
         getCharacters({ query });
       }} />
 
@@ -124,7 +129,7 @@ const HeroesList: React.FC<HeroesListProps> = () => {
               <div className="order-by">
                 <img src={heroIcon} alt={'hero'} />
                 <p>Ordenar por nome - A/Z</p>
-                <Switcher handleClick={handleOrderBy}/>
+                <Switcher handleClick={handleOrderBy} />
                 <BsHeartFill style={{ color: 'red', fontSize: '3rem' }} />
                 <p>Somente favoritos</p>
               </div>
@@ -136,6 +141,12 @@ const HeroesList: React.FC<HeroesListProps> = () => {
               return <HeroItem key={hero.id} hero={hero} isFav={favorites.findIndex((fav) => fav.id === hero.id) !== -1} handleAddFav={addFav} />;
             })}
           </div>
+          {showOnlyFavs
+            ? <></>
+            : <Pagination totalPages={Math.ceil(totalResults / 20)} currentPage={currentPage} handleClick={(page: number) => {
+              setCurrentPage(page);
+              getCharacters({ offset: (page - 1) * 20 });
+            }} />}
         </>}
       </main>
       <Footer />
