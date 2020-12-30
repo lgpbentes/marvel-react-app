@@ -1,8 +1,8 @@
 import axios from 'axios'
-
+require('dotenv').config()
 export const baseURL = 'https://gateway.marvel.com:443/v1/public';
 // TODO: move me to .env
-export const publicKey = '96217a48cad94538b4016516d4587e1a';
+export const publicKey = process.env.REACT_APP_MARVEL_PUBLIC_API_KEY;
 
 const api = axios.create({ baseURL });
 

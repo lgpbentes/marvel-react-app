@@ -20,6 +20,9 @@ Acesse a pasta `./screenshots` para screenshots da aplicação.
   - Permite o usuário favoritar/desfavoritar (dentro do limite de 5, com persistência de dados no navegador).
 
 ### Como subir localmente
+
+Crie um novo arquivo `.env` na raiz do projeto para as variáveis de ambiente. Adicione a variável `REACT_APP_MARVEL_PUBLIC_API_KEY=<sua-chave-marvel>`.
+
 Para subir a aplicação para desenvolvimento, use o yarn:
 
 ```
